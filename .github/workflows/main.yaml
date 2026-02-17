@@ -23,6 +23,6 @@ jobs:
 
       - name: Deploy
         env:
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-          SURGE_DOMAIN: ${{ secrets.SURGE_DOMAIN }}
-        run: surge ./ --domain "$SURGE_DOMAIN" --token "$SURGE_TOKEN"
+        run: npx surge ./ --domain surgemika-final-2026.surge.sh
