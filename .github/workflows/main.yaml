@@ -1,4 +1,4 @@
-name: Deploy to Surge.sh
+name: Deploy to Surge
 
 on:
   push:
@@ -8,15 +8,18 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
       - name: Install Surge
         run: npm install -g surge
 
-      - name: Deploy to Surge
-        env:
-          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-        run: surge ./ --domain ${{ secrets.SURGE_DOMAIN }}
+      - name: Deploy
+        run: surge ./ --domain ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
